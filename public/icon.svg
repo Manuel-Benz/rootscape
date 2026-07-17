@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+	<rect width="100" height="100" rx="22" fill="#9333EA"/>
+	<!-- Wurzelzeichen mit Decke -->
+	<path d="M 8,58 L 19,58 L 31,84 L 53,22 L 92,22" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+	<!-- Katzenkopf unter der Wurzel -->
+	<path d="M 55,44 L 50,28 L 68,38 Z" fill="#E67E22"/>
+	<path d="M 57,41 L 54,31 L 64,37 Z" fill="#F1948A"/>
+	<path d="M 89,44 L 94,28 L 76,38 Z" fill="#E67E22"/>
+	<path d="M 87,41 L 90,31 L 80,37 Z" fill="#F1948A"/>
+	<circle cx="72" cy="60" r="24" fill="#E67E22"/>
+	<ellipse cx="72" cy="70" rx="10.5" ry="7" fill="#F8D9B0"/>
+	<ellipse cx="62" cy="57" rx="5" ry="6.5" fill="#7CB342"/>
+	<ellipse cx="62" cy="57" rx="1.9" ry="4.8" fill="#141414"/>
+	<ellipse cx="82" cy="57" rx="5" ry="6.5" fill="#7CB342"/>
+	<ellipse cx="82" cy="57" rx="1.9" ry="4.8" fill="#141414"/>
+	<path d="M 68.8,65 L 75.2,65 L 72,68.6 Z" fill="#E8778A"/>
+	<path d="M 72,68.6 Q 68,72 64.5,70" stroke="#9C5A1D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+	<path d="M 72,68.6 Q 76,72 79.5,70" stroke="#9C5A1D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>
