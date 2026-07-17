@@ -61,7 +61,7 @@ const formatTime = (seconds) => {
 };
 
 const LangSoundControls = ({ language, setLanguage, soundOn, setSoundOn }) => (
-	<div className="flex items-center gap-2">
+	<div className="flex items-stretch gap-2">
 		<div className="flex rounded-lg overflow-hidden border border-purple-300">
 			{['de', 'en'].map((l) => (
 				<button
@@ -77,7 +77,7 @@ const LangSoundControls = ({ language, setLanguage, soundOn, setSoundOn }) => (
 		</div>
 		<button
 			onClick={() => setSoundOn((s) => !s)}
-			className={`p-1.5 rounded-lg border transition-colors ${
+			className={`px-1.5 flex items-center rounded-lg border transition-colors ${
 				soundOn
 					? 'border-purple-300 bg-purple-600 text-white'
 					: 'border-purple-300 bg-white text-purple-400 hover:bg-purple-100'
