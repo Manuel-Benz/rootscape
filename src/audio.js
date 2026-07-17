@@ -20,6 +20,20 @@ export function unlockAudio() {
 	return getCtx() !== null;
 }
 
+// Weißes Rauschen für die Hi-Hat einmal erzeugen und wiederverwenden
+let noiseBuffer = null;
+
+function getNoiseBuffer(audioCtx) {
+	if (!noiseBuffer || noiseBuffer.sampleRate !== audioCtx.sampleRate) {
+		noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.04, audioCtx.sampleRate);
+		const data = noiseBuffer.getChannelData(0);
+		for (let i = 0; i < data.length; i++) {
+			data[i] = Math.random() * 2 - 1;
+		}
+	}
+	return noiseBuffer;
+}
+
 export function playSound(type) {
 	try {
 		const audioContext = getCtx();
@@ -153,13 +167,8 @@ export function startIntroMusic() {
 	};
 
 	const hihat = (time) => {
-		const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.04, audioCtx.sampleRate);
-		const data = buffer.getChannelData(0);
-		for (let i = 0; i < data.length; i++) {
-			data[i] = Math.random() * 2 - 1;
-		}
 		const noise = audioCtx.createBufferSource();
-		noise.buffer = buffer;
+		noise.buffer = getNoiseBuffer(audioCtx);
 		const gain = audioCtx.createGain();
 		gain.gain.value = 0.08;
 		noise.connect(gain);
