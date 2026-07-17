@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { CheckCircle, XCircle, Clock, Trophy, Volume2, VolumeX } from 'lucide-react';
 import { translations, BOOK_WORDS, TOP_COLORS, BOTTOM_COLORS } from './i18n.js';
-import { playSound as playSoundRaw, startIntroMusic, unlockAudio } from './audio.js';
+import { playSound as playSoundRaw, startIntroMusic, resumeAudio, onAudioRunning } from './audio.js';
 import { Sun, Cat, FishFood, Bowl, Mug, Jug } from './components.jsx';
 
 const GAME_SECONDS = 10 * 60;
@@ -175,18 +175,24 @@ const EscaperoomGame = () => {
 		wasSolvedRef.current = booksCorrect;
 	}, [booksCorrect, sfx]);
 
-	// Audio erst nach der ersten Nutzer-Interaktion freischalten (Browser-Autoplay-Sperre)
+	// Audio starten: sofort beim Laden versuchen (Chrome erlaubt das bei bereits
+	// bekannten Seiten), sonst bei der ersten Nutzer-Interaktion. audioReady wird
+	// erst gesetzt, wenn der AudioContext wirklich läuft — nicht schon beim Versuch.
 	useEffect(() => {
-		const unlock = () => {
-			if (unlockAudio()) setAudioReady(true);
+		if (audioReady) return;
+		const markReady = () => setAudioReady(true);
+		const tryStart = () => {
+			if (resumeAudio()) markReady();
 		};
-		window.addEventListener('pointerdown', unlock, { once: true });
-		window.addEventListener('keydown', unlock, { once: true });
+		const unsubscribe = onAudioRunning(markReady);
+		tryStart();
+		const events = ['pointerdown', 'keydown', 'click', 'touchend'];
+		events.forEach((ev) => window.addEventListener(ev, tryStart));
 		return () => {
-			window.removeEventListener('pointerdown', unlock);
-			window.removeEventListener('keydown', unlock);
+			unsubscribe();
+			events.forEach((ev) => window.removeEventListener(ev, tryStart));
 		};
-	}, []);
+	}, [audioReady]);
 
 	// Intro-Musik auf dem Startbildschirm
 	useEffect(() => {

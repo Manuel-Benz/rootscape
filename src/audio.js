@@ -16,8 +16,28 @@ function getCtx() {
 	return ctx;
 }
 
-export function unlockAudio() {
-	return getCtx() !== null;
+// Versucht, den AudioContext zu starten. Gibt true zurück, wenn er läuft.
+// Ohne Nutzer-Interaktion klappt das nur, wenn der Browser Autoplay erlaubt
+// (z.B. Chrome bei hoher Media-Engagement für die Seite).
+export function resumeAudio() {
+	const ctx = getCtx();
+	if (!ctx) return false;
+	if (ctx.state !== 'running') {
+		ctx.resume().catch(() => {});
+	}
+	return ctx.state === 'running';
+}
+
+// Ruft cb auf, sobald der AudioContext (auch asynchron) in 'running' wechselt.
+// Gibt eine Unsubscribe-Funktion zurück.
+export function onAudioRunning(cb) {
+	const ctx = getCtx();
+	if (!ctx) return () => {};
+	const handler = () => {
+		if (ctx.state === 'running') cb();
+	};
+	ctx.addEventListener('statechange', handler);
+	return () => ctx.removeEventListener('statechange', handler);
 }
 
 // Weißes Rauschen für die Hi-Hat einmal erzeugen und wiederverwenden
