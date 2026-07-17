@@ -40,14 +40,14 @@ export const Cat = ({ x, y, scale = 1 }) => (
 		<path d="M 30,24 q 7,7 8,15" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
 		<path d="M -27,4 q -9,7 -11,17" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
 
-		{/* Brust / Bauch */}
-		<path d="M -16,62 Q -22,26 0,8 Q 22,26 16,62 Q 0,66 -16,62 Z" fill="#F8D9B0" />
+		{/* Brustfleck (breit und rund) */}
+		<ellipse cx="0" cy="8" rx="16" ry="15" fill="#F8D9B0" />
 
 		{/* Vorderbeine + Pfoten */}
-		<rect x="-18" y="18" width="14" height="42" rx="6" fill="#E67E22" />
-		<rect x="4" y="18" width="14" height="42" rx="6" fill="#EE7F2D" />
-		<ellipse cx="-11" cy="60" rx="9" ry="5.5" fill="#F8D9B0" />
-		<ellipse cx="11" cy="60" rx="9" ry="5.5" fill="#F8D9B0" />
+		<rect x="-19" y="20" width="15" height="40" rx="7" fill="#E67E22" />
+		<rect x="4" y="20" width="15" height="40" rx="7" fill="#EE7F2D" />
+		<ellipse cx="-11" cy="59" rx="9" ry="5.5" fill="#F8D9B0" />
+		<ellipse cx="11" cy="59" rx="9" ry="5.5" fill="#F8D9B0" />
 
 		{/* Ohren */}
 		<path d="M -24,-56 L -30,-82 L -8,-68 Z" fill="#E67E22" />
