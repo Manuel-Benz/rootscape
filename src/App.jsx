@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { CheckCircle, XCircle, Clock, Trophy } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Trophy, Volume2, VolumeX } from 'lucide-react';
 import { translations, BOOK_WORDS, TOP_COLORS, BOTTOM_COLORS } from './i18n.js';
 import { playSound as playSoundRaw, startIntroMusic, unlockAudio } from './audio.js';
 import { Sun, Cat, FishFood, Bowl, Mug, Jug } from './components.jsx';
 
 const GAME_SECONDS = 10 * 60;
 const SKY = '#EAF6FF';
+
+// Startpositionen der Buchreihen, mittig im Regal-Innenraum (680–840)
+const BOOK_ROW_X = { top: 698, bottom: 682 };
 
 // Stations-Logik (Texte kommen aus i18n)
 const STATIONS = [
@@ -74,10 +77,14 @@ const LangSoundControls = ({ language, setLanguage, soundOn, setSoundOn }) => (
 		</div>
 		<button
 			onClick={() => setSoundOn((s) => !s)}
-			className="text-2xl leading-none"
+			className={`p-1.5 rounded-lg border transition-colors ${
+				soundOn
+					? 'border-purple-300 bg-purple-600 text-white'
+					: 'border-purple-300 bg-white text-purple-400 hover:bg-purple-100'
+			}`}
 			title={soundOn ? 'Sound aus / off' : 'Sound an / on'}
 		>
-			{soundOn ? '🔊' : '🔇'}
+			{soundOn ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
 		</button>
 	</div>
 );
@@ -281,7 +288,7 @@ const EscaperoomGame = () => {
 			const { row, fromIndex } = draggingBook;
 			const isTopRow = row === 'top';
 			const maxBooks = isTopRow ? words.top.length : words.bottom.length;
-			const startX = isTopRow ? 696 : 680;
+			const startX = BOOK_ROW_X[row];
 
 			let targetIndex = -1;
 			for (let idx = 0; idx < maxBooks; idx++) {
@@ -597,8 +604,8 @@ const EscaperoomGame = () => {
 									onMouseDown={startBookDrag('top', bookIdx, book)}
 									onTouchStart={startBookDrag('top', bookIdx, book)}
 								>
-									<rect x={696 + bookIdx * 32} y="350" width="28" height="65" rx="2" fill={book.color} opacity={hidden ? 0.3 : 1} />
-									<text x={710 + bookIdx * 32} y="385" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial" opacity={hidden ? 0.3 : 1}>
+									<rect x={BOOK_ROW_X.top + bookIdx * 32} y="350" width="28" height="65" rx="2" fill={book.color} opacity={hidden ? 0.3 : 1} />
+									<text x={BOOK_ROW_X.top + 14 + bookIdx * 32} y="385" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial" opacity={hidden ? 0.3 : 1}>
 										{book.letter}
 									</text>
 								</g>
@@ -614,8 +621,8 @@ const EscaperoomGame = () => {
 									onMouseDown={startBookDrag('bottom', bookIdx, book)}
 									onTouchStart={startBookDrag('bottom', bookIdx, book)}
 								>
-									<rect x={680 + bookIdx * 32} y="430" width="28" height="65" rx="2" fill={book.color} opacity={hidden ? 0.3 : 1} />
-									<text x={694 + bookIdx * 32} y="465" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial" opacity={hidden ? 0.3 : 1}>
+									<rect x={BOOK_ROW_X.bottom + bookIdx * 32} y="430" width="28" height="65" rx="2" fill={book.color} opacity={hidden ? 0.3 : 1} />
+									<text x={BOOK_ROW_X.bottom + 14 + bookIdx * 32} y="465" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial" opacity={hidden ? 0.3 : 1}>
 										{book.letter}
 									</text>
 								</g>
@@ -640,10 +647,10 @@ const EscaperoomGame = () => {
 
 					{/* Pflanze (Station 6) */}
 					<g onClick={() => openStation(6)} style={{ cursor: canOpenStation(6) ? 'pointer' : 'default' }}>
-						<ellipse cx="800" cy="640" rx="35" ry="18" fill="#A0522D" />
-						<rect x="765" y="600" width="70" height="40" fill="#A0522D" />
-						<ellipse cx="800" cy="600" rx="35" ry="18" fill="#8B4513" />
-						<ellipse cx="800" cy="602" rx="30" ry="12" fill="#654321" />
+						<ellipse cx="800" cy="642" rx="35" ry="9" fill="#A0522D" />
+						<rect x="765" y="600" width="70" height="42" fill="#A0522D" />
+						<ellipse cx="800" cy="600" rx="35" ry="9" fill="#8B4513" />
+						<ellipse cx="800" cy="601" rx="30" ry="6" fill="#654321" />
 						<rect x="798" y="520" width="4" height="80" fill="#A0522D" />
 
 						{!completedStations.includes(6) ? (

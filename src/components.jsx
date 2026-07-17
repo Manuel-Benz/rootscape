@@ -28,63 +28,62 @@ export const Cat = ({ x, y, scale = 1 }) => (
 		{/* Schatten */}
 		<ellipse cx="4" cy="62" rx="44" ry="9" fill="#000000" opacity="0.12" />
 
-		{/* Schwanz */}
-		<path d="M 26,50 Q 58,54 63,26 Q 66,6 54,-2" fill="none" stroke="#D35400" strokeWidth="13" strokeLinecap="round" />
-		<path d="M 26,50 Q 58,54 63,26 Q 66,6 54,-2" fill="none" stroke="#F39C12" strokeWidth="8" strokeLinecap="round" />
-		<circle cx="54" cy="-3" r="6" fill="#F8D9B0" />
+		{/* Schwanz (einfarbig) */}
+		<path d="M 28,48 Q 60,52 64,24 Q 67,4 54,-4" fill="none" stroke="#E67E22" strokeWidth="12" strokeLinecap="round" />
+		<circle cx="54" cy="-4" r="6.5" fill="#F8D9B0" />
 
-		{/* Körper */}
-		<path d="M -36,60 Q -44,18 -22,-10 Q 0,-26 22,-10 Q 44,18 36,60 Q 20,65 0,65 Q -20,65 -36,60 Z" fill="#E67E22" />
+		{/* Körper, Schultern reichen bis zum Kopf */}
+		<path d="M -36,60 Q -46,16 -26,-14 Q 0,-34 26,-14 Q 46,16 36,60 Q 20,65 0,65 Q -20,65 -36,60 Z" fill="#E67E22" />
 
 		{/* Fellstreifen */}
-		<path d="M 24,4 q 10,6 13,17" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
-		<path d="M 29,26 q 7,7 8,15" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
-		<path d="M -25,6 q -9,7 -11,17" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
+		<path d="M 26,2 q 10,6 13,17" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
+		<path d="M 30,24 q 7,7 8,15" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
+		<path d="M -27,4 q -9,7 -11,17" stroke="#C95E12" strokeWidth="5" fill="none" strokeLinecap="round" />
 
 		{/* Brust / Bauch */}
-		<path d="M -16,62 Q -22,26 0,10 Q 22,26 16,62 Q 0,66 -16,62 Z" fill="#F8D9B0" />
+		<path d="M -16,62 Q -22,26 0,8 Q 22,26 16,62 Q 0,66 -16,62 Z" fill="#F8D9B0" />
 
 		{/* Vorderbeine + Pfoten */}
-		<rect x="-15" y="26" width="11" height="34" rx="5" fill="#E67E22" />
-		<rect x="4" y="26" width="11" height="34" rx="5" fill="#EE7F2D" />
-		<ellipse cx="-9" cy="60" rx="8" ry="5" fill="#F8D9B0" />
-		<ellipse cx="9" cy="60" rx="8" ry="5" fill="#F8D9B0" />
+		<rect x="-18" y="18" width="14" height="42" rx="6" fill="#E67E22" />
+		<rect x="4" y="18" width="14" height="42" rx="6" fill="#EE7F2D" />
+		<ellipse cx="-11" cy="60" rx="9" ry="5.5" fill="#F8D9B0" />
+		<ellipse cx="11" cy="60" rx="9" ry="5.5" fill="#F8D9B0" />
 
 		{/* Ohren */}
-		<path d="M -24,-58 L -30,-84 L -8,-70 Z" fill="#E67E22" />
-		<path d="M -21,-61 L -25,-76 L -12,-67 Z" fill="#F1948A" />
-		<path d="M 24,-58 L 30,-84 L 8,-70 Z" fill="#E67E22" />
-		<path d="M 21,-61 L 25,-76 L 12,-67 Z" fill="#F1948A" />
+		<path d="M -24,-56 L -30,-82 L -8,-68 Z" fill="#E67E22" />
+		<path d="M -21,-59 L -25,-74 L -12,-65 Z" fill="#F1948A" />
+		<path d="M 24,-56 L 30,-82 L 8,-68 Z" fill="#E67E22" />
+		<path d="M 21,-59 L 25,-74 L 12,-65 Z" fill="#F1948A" />
 
-		{/* Kopf */}
-		<circle cx="0" cy="-46" r="27" fill="#E67E22" />
+		{/* Kopf, sitzt auf den Schultern auf */}
+		<circle cx="0" cy="-44" r="27" fill="#E67E22" />
 
 		{/* Kopfstreifen */}
-		<path d="M -10,-70 q 1,5 0,9" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
-		<path d="M 0,-72 q 0,5 0,10" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
-		<path d="M 10,-70 q -1,5 0,9" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+		<path d="M -10,-68 q 1,5 0,9" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+		<path d="M 0,-70 q 0,5 0,10" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+		<path d="M 10,-68 q -1,5 0,9" stroke="#C95E12" strokeWidth="3.5" fill="none" strokeLinecap="round" />
 
 		{/* Schnauze */}
-		<ellipse cx="0" cy="-34" rx="11" ry="8" fill="#F8D9B0" />
+		<ellipse cx="0" cy="-32" rx="11" ry="8" fill="#F8D9B0" />
 
 		{/* Augen */}
-		<ellipse cx="-11" cy="-46" rx="5.5" ry="6.5" fill="#7CB342" />
-		<ellipse cx="-11" cy="-46" rx="2" ry="5" fill="#141414" />
-		<circle cx="-12.5" cy="-49" r="1.4" fill="#FFFFFF" />
-		<ellipse cx="11" cy="-46" rx="5.5" ry="6.5" fill="#7CB342" />
-		<ellipse cx="11" cy="-46" rx="2" ry="5" fill="#141414" />
-		<circle cx="9.5" cy="-49" r="1.4" fill="#FFFFFF" />
+		<ellipse cx="-11" cy="-44" rx="5.5" ry="6.5" fill="#7CB342" />
+		<ellipse cx="-11" cy="-44" rx="2" ry="5" fill="#141414" />
+		<circle cx="-12.5" cy="-47" r="1.4" fill="#FFFFFF" />
+		<ellipse cx="11" cy="-44" rx="5.5" ry="6.5" fill="#7CB342" />
+		<ellipse cx="11" cy="-44" rx="2" ry="5" fill="#141414" />
+		<circle cx="9.5" cy="-47" r="1.4" fill="#FFFFFF" />
 
 		{/* Nase + Mund */}
-		<path d="M -3.2,-38.5 L 3.2,-38.5 L 0,-34.5 Z" fill="#E8778A" />
-		<path d="M 0,-34.5 Q -4,-30 -8,-32.5" stroke="#9C5A1D" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-		<path d="M 0,-34.5 Q 4,-30 8,-32.5" stroke="#9C5A1D" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+		<path d="M -3.2,-36.5 L 3.2,-36.5 L 0,-32.5 Z" fill="#E8778A" />
+		<path d="M 0,-32.5 Q -4,-28 -8,-30.5" stroke="#9C5A1D" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+		<path d="M 0,-32.5 Q 4,-28 8,-30.5" stroke="#9C5A1D" strokeWidth="1.4" fill="none" strokeLinecap="round" />
 
 		{/* Schnurrhaare */}
-		<line x1="-14" y1="-36" x2="-31" y2="-38" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
-		<line x1="-14" y1="-32" x2="-30" y2="-30" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
-		<line x1="14" y1="-36" x2="31" y2="-38" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
-		<line x1="14" y1="-32" x2="30" y2="-30" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
+		<line x1="-14" y1="-34" x2="-31" y2="-36" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
+		<line x1="-14" y1="-30" x2="-30" y2="-28" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
+		<line x1="14" y1="-34" x2="31" y2="-36" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
+		<line x1="14" y1="-30" x2="30" y2="-28" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.8" />
 	</g>
 );
 
