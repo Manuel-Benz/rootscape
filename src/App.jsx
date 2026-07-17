@@ -194,12 +194,25 @@ const EscaperoomGame = () => {
 		};
 	}, [audioReady]);
 
-	// Intro-Musik auf dem Startbildschirm
+	// Intro-Musik: läuft auf dem Startbildschirm in Schleife; beim Spielstart
+	// spielt die aktuelle Phrase zu Ende. Sound aus stoppt sofort.
+	const musicRef = useRef(null);
 	useEffect(() => {
-		if (!audioReady || gameStarted || !soundOn) return;
-		const stop = startIntroMusic();
-		return stop;
+		if (!audioReady || !soundOn) {
+			musicRef.current?.stop();
+			musicRef.current = null;
+			return;
+		}
+		if (gameStarted) {
+			musicRef.current?.finish();
+			return;
+		}
+		musicRef.current?.stop();
+		musicRef.current = startIntroMusic();
 	}, [audioReady, gameStarted, soundOn]);
+
+	// Beim Unmount alles verstummen lassen
+	useEffect(() => () => musicRef.current?.stop(), []);
 
 	// Sprachwechsel: gelöstes Rätsel bleibt gelöst (Wörter der neuen Sprache),
 	// ungelöstes wird mit den neuen Buchstaben neu gemischt

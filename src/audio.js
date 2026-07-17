@@ -146,17 +146,20 @@ export function playSound(type) {
 	}
 }
 
-// Startet die Intro-Musik und gibt eine Stop-Funktion zurück.
+// Startet die Intro-Musik (Endlosschleife). Gibt ein Handle zurück:
+// stop() blendet sofort aus, finish() beendet nur die Schleife und lässt
+// die bereits laufende Phrase zu Ende spielen.
 export function startIntroMusic() {
 	const audioCtx = getCtx();
-	if (!audioCtx) return () => {};
+	if (!audioCtx) return { stop() {}, finish() {} };
 
 	const master = audioCtx.createGain();
 	master.gain.value = 0.3;
 	master.connect(audioCtx.destination);
 
-	let stopped = false;
+	let state = 'playing'; // 'playing' | 'finishing' | 'stopped'
 	let loopTimeout = null;
+	let phraseEnd = 0;
 
 	const note = (type, freq, time, duration, volume = 0.4) => {
 		const osc = audioCtx.createOscillator();
@@ -202,9 +205,10 @@ export function startIntroMusic() {
 	const bass = [110, 110, 98, 98, 82, 82, 98, 110];
 
 	const playPhrase = () => {
-		if (stopped) return;
+		if (state !== 'playing') return;
 
 		const startTime = audioCtx.currentTime + 0.1;
+		phraseEnd = startTime + 16 * beat;
 
 		for (let i = 0; i < 8; i++) {
 			const t = startTime + i * beat;
@@ -258,14 +262,25 @@ export function startIntroMusic() {
 
 	playPhrase();
 
-	return () => {
-		stopped = true;
-		clearTimeout(loopTimeout);
-		// Ausblenden statt hart abschneiden, dann Knoten freigeben
-		const now = audioCtx.currentTime;
-		master.gain.cancelScheduledValues(now);
-		master.gain.setValueAtTime(master.gain.value, now);
-		master.gain.linearRampToValueAtTime(0.0001, now + 0.25);
-		setTimeout(() => master.disconnect(), 400);
+	return {
+		// Sofort verstummen: ausblenden statt hart abschneiden, dann Knoten freigeben
+		stop() {
+			if (state === 'stopped') return;
+			state = 'stopped';
+			clearTimeout(loopTimeout);
+			const now = audioCtx.currentTime;
+			master.gain.cancelScheduledValues(now);
+			master.gain.setValueAtTime(master.gain.value, now);
+			master.gain.linearRampToValueAtTime(0.0001, now + 0.25);
+			setTimeout(() => master.disconnect(), 400);
+		},
+		// Schleife beenden, aktuelle Phrase zu Ende spielen lassen
+		finish() {
+			if (state !== 'playing') return;
+			state = 'finishing';
+			clearTimeout(loopTimeout);
+			const remaining = Math.max(0, phraseEnd - audioCtx.currentTime);
+			setTimeout(() => master.disconnect(), (remaining + 0.5) * 1000);
+		},
 	};
 }
